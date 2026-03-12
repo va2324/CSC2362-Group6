@@ -1,0 +1,16 @@
+# Env and secrets (Part 3: JWT secret in .env)
+.env
+.env.local
+*.env
+
+# Dependencies
+node_modules/
+
+# Expo / React Native
+.expo/
+dist/
+web-build/
+
+# OS
+.DS_Store
+*.log

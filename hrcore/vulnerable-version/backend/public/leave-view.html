@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>My Leave Requests — HRCore</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 2rem auto; padding: 1rem; }
+    .request { border: 1px solid #ccc; padding: 1rem; margin-bottom: 1rem; }
+    .notes { margin-top: 0.5rem; color: #333; }
+  </style>
+</head>
+<body>
+  <h1>My Leave Requests</h1>
+  <p>Token: <input id="token" type="text" placeholder="JWT token" style="width:100%" /></p>
+  <button onclick="load()">Load</button>
+  <div id="list"></div>
+  <script>
+    // VULNERABLE: notes rendered with innerHTML — Stored XSS (Vuln #3)
+    async function load() {
+      const token = document.getElementById('token').value;
+      const res = await fetch('/api/leave', { headers: { Authorization: 'Bearer ' + token } });
+      const data = await res.json();
+      const list = document.getElementById('list');
+      list.innerHTML = data.map(r => `
+        <div class="request">
+          <strong>${r.type}</strong> ${r.start_date} — ${r.end_date} [${r.status}]
+          <div class="notes">${r.notes || ''}</div>
+        </div>
+      `).join('');
+    }
+  </script>
+</body>
+</html>
