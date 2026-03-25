@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     marginBottom: 28,
   },
   icon: {
-    fontSize: 12,
+    fontSize: 25,
     color: '#E94560',
     textTransform: 'uppercase',
     letterSpacing: 1,
