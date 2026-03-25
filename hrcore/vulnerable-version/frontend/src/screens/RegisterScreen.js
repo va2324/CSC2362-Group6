@@ -96,7 +96,7 @@ export default function RegisterScreen({ navigation }) {
               <Text style={styles.icon}>HRCore</Text>
               <Text style={styles.title}>Create account</Text>
               <Text style={styles.subtitle}>
-                Register your HRCore account to access your workspace.
+                Register your HRCore account
               </Text>
             </View>
 
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     marginBottom: 28,
   },
   icon: {
-    fontSize: 12,
+    fontSize: 25,
     color: '#E94560',
     textTransform: 'uppercase',
     letterSpacing: 1,
