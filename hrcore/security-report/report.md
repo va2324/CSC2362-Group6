@@ -12,6 +12,7 @@ This document records before/after evidence for each of the 7 intentional vulner
 **PoC (vulnerable):** Script that dumps all salaries via search endpoint.
 
 **Before (vulnerable):** [Screenshot/recording — exploit succeeds]
+![Screenshot](screenshots/SQLInjection.png "SQL Injection")
 
 **After (secure):** [Screenshot/recording — same payload returns safe results / error]
 
@@ -48,6 +49,7 @@ This document records before/after evidence for each of the 7 intentional vulner
 **PoC (vulnerable):** Screenshot of DB showing plaintext or weak hash.
 
 **Before (vulnerable):** [Screenshot of `users.password` column]
+![Screenshot](screenshots/Passwords.png "Unencrypted Passwords")
 
 **After (secure):** [Screenshot — bcrypt hashes only]
 
@@ -84,6 +86,10 @@ This document records before/after evidence for each of the 7 intentional vulner
 **PoC (vulnerable):** Modify AsyncStorage `role` to `admin`, reload, access admin screen.
 
 **Before (vulnerable):** [Screenshot — admin panel visible and functional]
+![Screenshot 1](screenshots/EscalateRole1.png "Employee Dashboard")
+![Screenshot 2](screenshots/EscalateRole2.png "Employee Role in Storage")
+![Screenshot 3](screenshots/EscalateRole3.png "Role Escalation to Admin")
+![Screenshot 4](screenshots/EscalateRole4.png "Admin Dashboard")
 
 **After (secure):** [Screenshot — role from JWT only; editing storage has no effect, 403 on admin API]
 
