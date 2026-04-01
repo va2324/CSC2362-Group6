@@ -25,6 +25,8 @@ This document records before/after evidence for each of the 7 intentional vulner
 **PoC (vulnerable):** `curl` hitting `/api/admin/all-employees` with a regular user token.
 
 **Before (vulnerable):** [Screenshot — 200 OK, full employee list returned]
+![Screenshot](screenshots/BrokenAccessControl1.png "Employee Token")
+![Screenshot](screenshots/BrokenAccessControl2.png "Admin Access Granted")
 
 **After (secure):** [Screenshot — 403 Forbidden]
 
@@ -62,6 +64,9 @@ This document records before/after evidence for each of the 7 intentional vulner
 **PoC (vulnerable):** Forge a token with the known secret to become admin.
 
 **Before (vulnerable):** [Screenshot — forged token accepted, admin access]
+![Screenshot](screenshots/JWT1.png "Harcoded JWT Secret")
+![Screenshot](screenshots/JWT2.png "Forging New Token")
+![Screenshot](screenshots/JWT3.png "Gaining Admin Privileges")
 
 **After (secure):** [Screenshot — secret from env, forged token rejected]
 
@@ -74,6 +79,9 @@ This document records before/after evidence for each of the 7 intentional vulner
 **PoC (vulnerable):** Script that iterates `/api/employees/1` … `/api/employees/100`.
 
 **Before (vulnerable):** [Screenshot — all profiles returned]
+![Screenshot](screenshots/IDOR1.png "Script")
+![Screenshot](screenshots/IDOR2.png "Script Continued")
+![Screenshot](screenshots/IDOR3.png "Employee Profiles")
 
 **After (secure):** [Screenshot — 403 for IDs other than own / admin]
 
