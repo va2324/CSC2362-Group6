@@ -1,7 +1,7 @@
 /**
  * Auth routes - VULNERABLE
  * - Plaintext/MD5 password storage
- * - JWT secret hardcoded
+ * - JWT secret comes from .env
  * - Role in cookie (client can tamper)
  */
 
@@ -11,7 +11,7 @@ const { pool } = require('../db');
 
 const router = express.Router();
 
-// INTENTIONAL: Hardcoded JWT secret (Vuln #5)
+// FIXED: JWT secret from .env (Vuln #5 Fixed)
 const JWT_SECRET = process.env.JWT_SECRET;
 
 // INTENTIONAL: Store password in plaintext or weak hash (Vuln #4)
