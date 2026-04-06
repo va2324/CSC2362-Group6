@@ -69,7 +69,8 @@ This document records before/after evidence for each of the 7 intentional vulner
 ![Screenshot](screenshots/JWT3.png "Gaining Admin Privileges")
 
 **After (secure):** [Screenshot — secret from env, forged token rejected]
-
+![Screenshot](screenshots/FixedJWT1.png "JWT Secret in .env")
+![Screenshot](screenshots/FixedJWT2.png "JWT Secret not hardcoded")
 ---
 
 ## 6. IDOR (A01)
