@@ -8,7 +8,7 @@ const path = require('path');
 const { pool } = require('../db');
 
 const router = express.Router();
-const JWT_SECRET = 'password123';
+const JWT_SECRET = process.env.JWT_SECRET;
 
 function getUserId(req) {
   const token = req.cookies?.token || req.headers.authorization?.replace('Bearer ', '');

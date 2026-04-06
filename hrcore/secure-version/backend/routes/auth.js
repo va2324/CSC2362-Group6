@@ -12,7 +12,7 @@ const { pool } = require('../db');
 const router = express.Router();
 
 // INTENTIONAL: Hardcoded JWT secret (Vuln #5)
-const JWT_SECRET = 'password123';
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // INTENTIONAL: Store password in plaintext or weak hash (Vuln #4)
 // Using plaintext for demo; could use MD5 in DB
