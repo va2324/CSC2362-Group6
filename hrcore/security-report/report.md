@@ -15,6 +15,9 @@ This document records before/after evidence for each of the 7 intentional vulner
 ![Screenshot](screenshots/SQLInjection.png "SQL Injection")
 
 **After (secure):** [Screenshot/recording — same payload returns safe results / error]
+![Screenshot](screenshots/FixedSQL1.png "SQL Input Validation")
+![Screenshot](screenshots/FixedSQL2.png "No Results Returned")
+![Screenshot](screenshots/FixedSQL3.png "Error 400 - Bad Request")
 
 ---
 

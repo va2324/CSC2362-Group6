@@ -22,11 +22,12 @@ function getUserId(req) {
   }
 }
 
-// INTENTIONAL: Raw SQL concatenation - SQL Injection (Vuln #1)
+// FIXED: SQL input is validated & returns Error 400 - SQL Injection (Vuln #1 Fixed)
 // GET /api/employees/search?name=
 router.get('/search', async (req, res) => {
   try {
     const name = req.query.name || '';
+    if(name.includes("'") || name.includes('"') || name.includes("=") || name.includes("--") || name.includes("#")) return res.status(400).json({error: 'Invalid input'});
     const query = `SELECT id, name, email, role, department, salary, created_at FROM users WHERE name ILIKE '%${name}%'`;
     const result = await pool.query(query);
     res.json(result.rows);
