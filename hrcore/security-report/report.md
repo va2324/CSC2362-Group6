@@ -111,15 +111,32 @@ This document records before/after evidence for each of the 7 intentional vulner
 **PoC (vulnerable):** Modify AsyncStorage `role` to `admin`, reload, access admin screen.
 
 **Before (vulnerable):** [Screenshot — admin panel visible and functional]
-![Screenshot 1](screenshots/EscalateRole1.png "Employee Dashboard")
+![Screenshot](screenshots/EscalateRole1.png "Employee Dashboard")
 
-![Screenshot 2](screenshots/EscalateRole2.png "Employee Role in Storage")
+![Screenshot](screenshots/EscalateRole2.png "Employee Role in Storage")
 
-![Screenshot 3](screenshots/EscalateRole3.png "Role Escalation to Admin")
+![Screenshot](screenshots/EscalateRole3.png "Role Escalation to Admin")
 
-![Screenshot 4](screenshots/EscalateRole4.png "Admin Dashboard")
+![Screenshot](screenshots/EscalateRole4.png "Admin Dashboard")
 
 **After (secure):** [Screenshot — role from JWT only; editing storage has no effect, 403 on admin API]
+
+---
+
+## 8. Harcoded Database Password
+
+**Where:** Password hardcoded in backend/db.js file.
+
+**PoC (vulnerable):** Attacker can access the database with hardcoded password and steal/destroy data.
+
+**Before (vulnerable):** [Screenshot — hardcoded database password]
+![Screenshot](screenshots/DBPassword1.png "Hardcoded Database Info")
+
+![Screenshot](screenshots/DBPassword2.png "Successful Database Login")
+
+
+**After (secure):** [Screenshot — database info stored safely in .env]
+![Screenshot](screenshots/FixedDBInfo.png "Database Info in .env file")
 
 ---
 
