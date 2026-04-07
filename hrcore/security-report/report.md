@@ -15,6 +15,11 @@ This document records before/after evidence for each of the 7 intentional vulner
 ![Screenshot](screenshots/SQLInjection.png "SQL Injection")
 
 **After (secure):** [Screenshot/recording — same payload returns safe results / error]
+![Screenshot](screenshots/FixedSQL1.png "SQL Input Validation")
+
+![Screenshot](screenshots/FixedSQL2.png "No Results Returned")
+
+![Screenshot](screenshots/FixedSQL3.png "Error 400 - Bad Request")
 
 ---
 
@@ -26,6 +31,7 @@ This document records before/after evidence for each of the 7 intentional vulner
 
 **Before (vulnerable):** [Screenshot — 200 OK, full employee list returned]
 ![Screenshot](screenshots/BrokenAccessControl1.png "Employee Token")
+
 ![Screenshot](screenshots/BrokenAccessControl2.png "Admin Access Granted")
 
 **After (secure):** [Screenshot — 403 Forbidden]
@@ -54,6 +60,11 @@ This document records before/after evidence for each of the 7 intentional vulner
 ![Screenshot](screenshots/Passwords.png "Unencrypted Passwords")
 
 **After (secure):** [Screenshot — bcrypt hashes only]
+![Screenshot](screenshots/FixedHash1.png "Register Using bcrypt")
+
+![Screenshot](screenshots/FixedHash2.png "Login Using bcrypt")
+
+![Screenshot](screenshots/FixedHash3.png "Encrypted Passwords")
 
 ---
 
@@ -65,11 +76,15 @@ This document records before/after evidence for each of the 7 intentional vulner
 
 **Before (vulnerable):** [Screenshot — forged token accepted, admin access]
 ![Screenshot](screenshots/JWT1.png "Harcoded JWT Secret")
+
 ![Screenshot](screenshots/JWT2.png "Forging New Token")
+
 ![Screenshot](screenshots/JWT3.png "Gaining Admin Privileges")
 
 **After (secure):** [Screenshot — secret from env, forged token rejected]
+![Screenshot](screenshots/FixedJWT1.png "JWT Secret in .env")
 
+![Screenshot](screenshots/FixedJWT2.png "JWT Secret not hardcoded")
 ---
 
 ## 6. IDOR (A01)
@@ -80,7 +95,9 @@ This document records before/after evidence for each of the 7 intentional vulner
 
 **Before (vulnerable):** [Screenshot — all profiles returned]
 ![Screenshot](screenshots/IDOR1.png "Script")
+
 ![Screenshot](screenshots/IDOR2.png "Script Continued")
+
 ![Screenshot](screenshots/IDOR3.png "Employee Profiles")
 
 **After (secure):** [Screenshot — 403 for IDs other than own / admin]
@@ -95,8 +112,11 @@ This document records before/after evidence for each of the 7 intentional vulner
 
 **Before (vulnerable):** [Screenshot — admin panel visible and functional]
 ![Screenshot 1](screenshots/EscalateRole1.png "Employee Dashboard")
+
 ![Screenshot 2](screenshots/EscalateRole2.png "Employee Role in Storage")
+
 ![Screenshot 3](screenshots/EscalateRole3.png "Role Escalation to Admin")
+
 ![Screenshot 4](screenshots/EscalateRole4.png "Admin Dashboard")
 
 **After (secure):** [Screenshot — role from JWT only; editing storage has no effect, 403 on admin API]
