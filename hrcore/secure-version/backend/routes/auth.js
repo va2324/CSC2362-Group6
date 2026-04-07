@@ -8,22 +8,23 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const { pool } = require('../db');
-
+const bcrypt = require('bcrypt');
 const router = express.Router();
 
 // FIXED: JWT secret from .env (Vuln #5 Fixed)
 const JWT_SECRET = process.env.JWT_SECRET;
 
-// INTENTIONAL: Store password in plaintext or weak hash (Vuln #4)
+// FIXED: Hash password with bcrypt (Vuln #4 Fixed)
 // Using plaintext for demo; could use MD5 in DB
-function hashPassword(plain) {
-  return plain; // no hashing - plaintext
+async function hashPassword(plain) {
+  const hash = await bcrypt.hash(plain, 10); // Hashes password with 10 salt rounds. 
+  return hash; 
 }
 
 router.post('/register', async (req, res) => {
   try {
     const { name, email, password, role = 'employee', department, salary } = req.body;
-    const hashed = hashPassword(password);
+    const hashed = await hashPassword(password);
     const result = await pool.query(
       'INSERT INTO users (name, email, password, role, department, salary) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id, name, email, role, department, salary, created_at',
       [name, email, hashed, role, department || null, salary || null]
@@ -53,9 +54,11 @@ router.post('/login', async (req, res) => {
       [email]
     );
     const user = result.rows[0];
-    if (!user || user.password !== hashPassword(password)) {
-      return res.status(401).json({ error: 'Invalid credentials' });
-    }
+    if(!user) return res.status(401).json({ error: 'Invalid credentials' });
+
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) return res.status(401).json({ error: 'Invalid credentials' });
+
     const token = jwt.sign(
       { id: user.id, email: user.email },
       JWT_SECRET,
