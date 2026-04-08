@@ -1,5 +1,5 @@
 /**
- * VULNERABLE: Role is read from AsyncStorage - user can edit role to 'admin' (Vuln #7 - Client-side role escalation)
+ * FIXED: Role is no longer in AsyncStorage - user cannot edit role to 'admin' (Vuln #7 Fixed - Client-side role escalation)
  */
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
@@ -19,7 +19,6 @@ export function AuthProvider({ children }) {
   async function loadStoredAuth() {
     try {
       const token = await AsyncStorage.getItem('token');
-      const role = await AsyncStorage.getItem('role');
       const userId = await AsyncStorage.getItem('userId');
       const name = await AsyncStorage.getItem('name');
       const email = await AsyncStorage.getItem('email');
@@ -55,7 +54,6 @@ export function AuthProvider({ children }) {
     }
     const data = await res.json();
     await AsyncStorage.setItem('token', data.token);
-    await AsyncStorage.setItem('role', data.user.role);
     await AsyncStorage.setItem('userId', String(data.user.id));
     await AsyncStorage.setItem('name', data.user.name || '');
     await AsyncStorage.setItem('email', data.user.email || '');
@@ -77,7 +75,6 @@ export function AuthProvider({ children }) {
     }
     const data = await res.json();
     await AsyncStorage.setItem('token', data.token);
-    await AsyncStorage.setItem('role', data.user.role);
     await AsyncStorage.setItem('userId', String(data.user.id));
     await AsyncStorage.setItem('name', data.user.name || '');
     await AsyncStorage.setItem('email', data.user.email || '');
@@ -90,7 +87,7 @@ export function AuthProvider({ children }) {
     try {
       await fetch(`${API_BASE}/api/logout`, { method: 'POST', credentials: 'include' });
     } catch (_) {}
-    await AsyncStorage.multiRemove(['token', 'role', 'userId', 'name', 'email', 'department', 'salary']);
+    await AsyncStorage.multiRemove(['token', 'userId', 'name', 'email', 'department', 'salary']);
     setUser(null);
   }
 
