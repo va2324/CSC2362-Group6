@@ -36,6 +36,10 @@ This document records before/after evidence for each of the 7 intentional vulner
 
 **After (secure):** [Screenshot — 403 Forbidden]
 
+![Screenshot](screenshots/FixedAccessControl1.png "Employee Token")
+
+![Screenshot](screenshots/FixedAccessControl2.png "Admin Access Denied")
+
 ---
 
 ## 3. Stored XSS (A03 Injection)

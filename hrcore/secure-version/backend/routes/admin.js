@@ -1,6 +1,6 @@
 /**
- * Admin routes - VULNERABLE
- * INTENTIONAL: No role check - any authenticated user can call these (Vuln #2 - Broken Access Control)
+ * Admin routes - SECURE
+ * FIXED: Implemented role checks - only users with 'admin' role can call these routes (Vuln #2 Fixed - Broken Access Control)
  */
 
 const express = require('express');
@@ -21,12 +21,25 @@ function getUserId(req) {
   }
 }
 
+function getRole(req) {
+  const token = req.cookies?.token || req.headers.authorization?.replace('Bearer ', '');
+  if(!token) return null;
+  try {
+    const user = jwt.verify(token, JWT_SECRET);
+    return user.role;
+  } catch {
+    return null;
+  }
+}
+
 // No admin middleware - anyone with valid JWT can access
 
 // GET /api/admin/all-employees
 router.get('/all-employees', async (req, res) => {
   try {
-    if (!getUserId(req)) return res.status(401).json({ error: 'Unauthorized' });
+    if (!getUserId(req) || !getRole(req)) return res.status(401).json({ error: 'Unauthorized' });
+    let user_role = getRole(req);
+    if (user_role !== 'admin') return res.status(403).json({ error: 'Forbidden' });
     const result = await pool.query(
       'SELECT id, name, email, role, department, salary, created_at FROM users ORDER BY id'
     );
@@ -40,6 +53,8 @@ router.get('/all-employees', async (req, res) => {
 router.put('/promote/:id', async (req, res) => {
   try {
     if (!getUserId(req)) return res.status(401).json({ error: 'Unauthorized' });
+    let user_role = getRole(req);
+    if (user_role !== 'admin') return res.status(403).json({ error: 'Forbidden' });
     const { id } = req.params;
     const { role } = req.body;
     const result = await pool.query(
@@ -57,6 +72,8 @@ router.put('/promote/:id', async (req, res) => {
 router.delete('/employee/:id', async (req, res) => {
   try {
     if (!getUserId(req)) return res.status(401).json({ error: 'Unauthorized' });
+    let user_role = getRole(req);
+    if (user_role !== 'admin') return res.status(403).json({ error: 'Forbidden' });
     const { id } = req.params;
     await pool.query('DELETE FROM users WHERE id = $1', [id]);
     res.json({ deleted: true, id: parseInt(id, 10) });
