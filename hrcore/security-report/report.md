@@ -36,6 +36,10 @@ This document records before/after evidence for each of the 7 intentional vulner
 
 **After (secure):** [Screenshot — 403 Forbidden]
 
+![Screenshot](screenshots/FixedAccessControl1.png "Employee Token")
+
+![Screenshot](screenshots/FixedAccessControl2.png "Admin Access Denied")
+
 ---
 
 ## 3. Stored XSS (A03 Injection)
@@ -103,6 +107,12 @@ This document records before/after evidence for each of the 7 intentional vulner
 
 **After (secure):** [Screenshot — 403 for IDs other than own / admin]
 
+![Screenshot](screenshots/FixedIDOR1.png "Script")
+
+![Screenshot](screenshots/FixedIDOR2.png "Script Continued")
+
+![Screenshot](screenshots/FixedIDOR3.png "Denied Access to Other Profiles")
+
 ---
 
 ## 7. Client-Side Role Escalation (A01)
@@ -121,6 +131,13 @@ This document records before/after evidence for each of the 7 intentional vulner
 ![Screenshot](screenshots/EscalateRole4.png "Admin Dashboard")
 
 **After (secure):** [Screenshot — role from JWT only; editing storage has no effect, 403 on admin API]
+![Screenshot](screenshots/FixedEscalation1.png "Employee Dashboard")
+
+![Screenshot](screenshots/FixedEscalation2.png "Employee Role in Storage")
+
+![Screenshot](screenshots/FixedEscalation3.png "Role Escalation to Admin")
+
+![Screenshot](screenshots/FixedEscalation4.png "Nothing Happens")
 
 ---
 
