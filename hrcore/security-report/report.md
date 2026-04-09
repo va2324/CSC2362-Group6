@@ -107,6 +107,12 @@ This document records before/after evidence for each of the 7 intentional vulner
 
 **After (secure):** [Screenshot — 403 for IDs other than own / admin]
 
+![Screenshot](screenshots/FixedIDOR1.png "Script")
+
+![Screenshot](screenshots/FixedIDOR2.png "Script Continued")
+
+![Screenshot](screenshots/FixedIDOR3.png "Denied Access to Other Profiles")
+
 ---
 
 ## 7. Client-Side Role Escalation (A01)

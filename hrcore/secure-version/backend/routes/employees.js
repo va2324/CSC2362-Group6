@@ -1,7 +1,7 @@
 /**
- * Employee routes - VULNERABLE
- * - SQL Injection in search (Vuln #1)
- * - IDOR: any user can GET/PUT any employee by id (Vuln #6)
+ * Employee routes - SECURE
+ * - SQL Injection in search prevented through input validation (Vuln #1 Fixed)
+ * - IDOR: users cannot GET/PUT any employee profiles except their own (Vuln #6 Fixed)
  */
 
 const express = require('express');
@@ -22,6 +22,17 @@ function getUserId(req) {
   }
 }
 
+function getRole(req) {
+  const token = req.cookies?.token || req.headers.authorization?.replace('Bearer ', '');
+  if(!token) return null;
+  try {
+    const user = jwt.verify(token, JWT_SECRET);
+    return user.role;
+  } catch {
+    return null;
+  }
+}
+
 // FIXED: SQL input is validated & returns Error 400 - SQL Injection (Vuln #1 Fixed)
 // GET /api/employees/search?name=
 router.get('/search', async (req, res) => {
@@ -36,11 +47,14 @@ router.get('/search', async (req, res) => {
   }
 });
 
-// INTENTIONAL: No check that req.user.id === id - IDOR (Vuln #6)
+// FIXED: Route checks that req.user.id === id - IDOR (Vuln #6 Fixed)
 // GET /api/employees/:id
 router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
+    const user_id = getUserId(req);
+    const user_role = getRole(req);
+    if (user_id !== parseInt(id) && user_role !== 'admin') return res.status(403).json({ error: 'Forbidden' });
     const result = await pool.query(
       'SELECT id, name, email, role, department, salary, created_at FROM users WHERE id = $1',
       [id]
@@ -52,11 +66,14 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// INTENTIONAL: No ownership/role check - IDOR
+// FIXED: Route checks for ownership & role - IDOR
 // PUT /api/employees/:id
 router.put('/:id', async (req, res) => {
   try {
     const { id } = req.params;
+    const user_id = getUserId(req);
+    const user_role = getRole(req);
+    if (user_id !== parseInt(id) && user_role !== 'admin') return res.status(403).json({ error: 'Forbidden' });
     const { name, department, salary } = req.body;
     const result = await pool.query(
       'UPDATE users SET name = COALESCE($1, name), department = COALESCE($2, department), salary = COALESCE($3, salary) WHERE id = $4 RETURNING id, name, email, role, department, salary',

@@ -32,13 +32,13 @@ function getRole(req) {
   }
 }
 
-// No admin middleware - anyone with valid JWT can access
+// Admin middleware implemented - only those with 'admin' role can access
 
 // GET /api/admin/all-employees
 router.get('/all-employees', async (req, res) => {
   try {
     if (!getUserId(req) || !getRole(req)) return res.status(401).json({ error: 'Unauthorized' });
-    let user_role = getRole(req);
+    const user_role = getRole(req);
     if (user_role !== 'admin') return res.status(403).json({ error: 'Forbidden' });
     const result = await pool.query(
       'SELECT id, name, email, role, department, salary, created_at FROM users ORDER BY id'
@@ -53,7 +53,7 @@ router.get('/all-employees', async (req, res) => {
 router.put('/promote/:id', async (req, res) => {
   try {
     if (!getUserId(req)) return res.status(401).json({ error: 'Unauthorized' });
-    let user_role = getRole(req);
+    const user_role = getRole(req);
     if (user_role !== 'admin') return res.status(403).json({ error: 'Forbidden' });
     const { id } = req.params;
     const { role } = req.body;
@@ -72,7 +72,7 @@ router.put('/promote/:id', async (req, res) => {
 router.delete('/employee/:id', async (req, res) => {
   try {
     if (!getUserId(req)) return res.status(401).json({ error: 'Unauthorized' });
-    let user_role = getRole(req);
+    const user_role = getRole(req);
     if (user_role !== 'admin') return res.status(403).json({ error: 'Forbidden' });
     const { id } = req.params;
     await pool.query('DELETE FROM users WHERE id = $1', [id]);

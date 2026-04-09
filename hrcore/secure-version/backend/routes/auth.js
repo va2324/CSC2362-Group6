@@ -1,5 +1,5 @@
 /**
- * Auth routes - VULNERABLE
+ * Auth routes - SECURE
  * - Passwords hashed with bcrypt
  * - JWT secret comes from .env
  * - Removed role from cookie
