@@ -42,19 +42,7 @@ This document records before/after evidence for each of the 7 intentional vulner
 
 ---
 
-## 3. Stored XSS (A03 Injection)
-
-**Where:** Leave request `notes` field rendered unsanitized (e.g. in `leave-view.html` or admin view).
-
-**PoC (vulnerable):** Payload in notes: `<script>alert('XSS')</script>` or token-stealing payload.
-
-**Before (vulnerable):** [Screenshot — alert fires or token exfiltrated]
-
-**After (secure):** [Screenshot — notes escaped/sanitized, no script execution]
-
----
-
-## 4. Insecure Password Storage (A02)
+## 3. Insecure Password Storage (A02)
 
 **Where:** Plaintext or MD5 passwords in DB.
 
@@ -72,7 +60,7 @@ This document records before/after evidence for each of the 7 intentional vulner
 
 ---
 
-## 5. Hardcoded JWT Secret (A02)
+## 4. Hardcoded JWT Secret (A02)
 
 **Where:** `JWT_SECRET = "password123"` in source.
 
@@ -92,7 +80,7 @@ This document records before/after evidence for each of the 7 intentional vulner
 ![Screenshot](screenshots/FixedJWT2.png "JWT Secret not hardcoded")
 ---
 
-## 6. IDOR (A01)
+## 5. IDOR (A01)
 
 **Where:** `GET /api/employees/:id` — any user can fetch any ID.
 
@@ -115,7 +103,7 @@ This document records before/after evidence for each of the 7 intentional vulner
 
 ---
 
-## 7. Client-Side Role Escalation (A01)
+## 6. Client-Side Role Escalation (A01)
 
 **Where:** Role stored in AsyncStorage/cookie; user can edit to `admin`.
 
@@ -141,7 +129,7 @@ This document records before/after evidence for each of the 7 intentional vulner
 
 ---
 
-## 8. Harcoded Database Password
+## 7. Harcoded Database Password
 
 **Where:** Password hardcoded in backend/db.js file.
 
@@ -158,6 +146,24 @@ This document records before/after evidence for each of the 7 intentional vulner
 ![Screenshot](screenshots/FixedDBInfo1.png "Database Info in .env file")
 
 ![Screenshot](screenshots/FixedDBInfo2.png "Environment Variable Check")
+
+---
+
+## 8. Missing Security Headers
+
+**Where:** server.js does not establish any security headers for the application.
+
+**PoC (vulnerable):** Without security headers, application is vulnerable to unauthorized access and data exposure.
+
+**Before (vulnerable):** [Screenshot — No security headers at all]
+
+![Screenshot](screenshots/Headers1.png "No Security Headers")
+
+**After (secure):** [Screenshot — Security headers established with helmet]
+
+![Screenshot](screenshots/FixedHeaders1.png "Installed & Implemented helmet")
+
+![Screenshot](screenshots/FixedHeaders2.png "Security Headers from helmet")
 
 ---
 

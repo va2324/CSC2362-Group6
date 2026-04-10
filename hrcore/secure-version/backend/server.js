@@ -16,6 +16,9 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const helmet = require('helmet');
+app.use(helmet());
+
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
