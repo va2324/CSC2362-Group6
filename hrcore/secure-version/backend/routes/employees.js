@@ -37,10 +37,11 @@ function getRole(req) {
 // GET /api/employees/search?name=
 router.get('/search', async (req, res) => {
   try {
-    const name = req.query.name || '';
+    if(!req.query.name) return res.status(400).json({error: 'Missing Name'});
+    const name = req.query.name;
     if(name.includes("'") || name.includes('"') || name.includes("=") || name.includes("--") || name.includes("#")) return res.status(400).json({error: 'Invalid input'});
-    const query = `SELECT id, name, email, role, department, salary, created_at FROM users WHERE name ILIKE '%${name}%'`;
-    const result = await pool.query(query);
+    const query = 'SELECT id, name, email, role, department, salary, created_at FROM users WHERE name ILIKE $1';
+    const result = await pool.query(query, [`%${name}%`]); // Query is parametrized
     res.json(result.rows);
   } catch (err) {
     res.status(500).json({ error: err.message });

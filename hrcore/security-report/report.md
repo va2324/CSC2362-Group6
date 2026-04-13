@@ -129,7 +129,7 @@ This document records before/after evidence for each of the 7 intentional vulner
 
 ---
 
-## 7. Harcoded Database Password
+## 7. Hardcoded Database Password
 
 **Where:** Password hardcoded in backend/db.js file.
 
@@ -164,6 +164,26 @@ This document records before/after evidence for each of the 7 intentional vulner
 ![Screenshot](screenshots/FixedHeaders1.png "Installed & Implemented helmet")
 
 ![Screenshot](screenshots/FixedHeaders2.png "Security Headers from helmet")
+
+---
+
+## 9. Incomplete Search Route
+
+**Where:** `GET api/employees/search?name=`
+
+**PoC (vulnerable):** Incomplete search route exposes all employee data.
+
+**Before (vulnerable):** [Screenshot — No check on name input]
+
+![Screenshot](screenshots/SearchRoute1.png "Regular Search Works")
+
+![Screenshot](screenshots/SearchRoute2.png "Incomplete Search Route Exposes All Data")
+
+**After (secure):** [Screenshot — Checks that name input exists and gives 400 error if not]
+
+![Screenshot](screenshots/FixedRoute1.png "Checks for Name Input")
+
+![Screenshot](screenshots/FixedRoute2.png "Incomplete Search Route - 400 Error")
 
 ---
 
