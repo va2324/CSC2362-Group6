@@ -187,6 +187,26 @@ This document records before/after evidence for each of the 7 intentional vulner
 
 ---
 
+## 10. No Rate Limit
+
+**Where:** `POST api/auth/login`
+
+**PoC (vulnerable):** No rate limit on login attempts makes the login route vulnerable to brute-force attacks. 
+
+**Before (vulnerable):** [Screenshot — No rate limit on login]
+
+![Screenshot](screenshots/RateLimitScript.png "Brute Force Script")
+
+![Screenshot](screenshots/NoRateLimit.png "Unlimited Login Attempts")
+
+**After (secure):** [Screenshot — Rate Limit on Login - 429 Too Many Requests]
+
+![Screenshot](screenshots/RateLimitScript.png "Brute Force Script")
+
+![Screenshot](screenshots/FixedRateLimit.png "Rate Limit on Login Attempts")
+
+---
+
 ## Regression Testing (secure version)
 
 | Test | Result |
