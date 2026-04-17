@@ -1,8 +1,3 @@
-/**
- * HRCore Backend - VULNERABLE VERSION
- * Intentional security flaws for Part 2 (The Break)
- */
-
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
@@ -14,15 +9,19 @@ const documentRoutes = require('./routes/documents');
 
 const path = require('path');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
-const helmet = require('helmet');
+const helmet = require('helmet'); // Implemented security headers
 app.use(helmet());
 
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(cookieParser());
+
+const rateLimit = require('express-rate-limit'); // Added rate limits
+const loginLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 5 }); // Only 5 login attempts allowed in 15 minutes
+app.use('/api/auth/login', loginLimiter);
 
 app.use('/api', authRoutes);
 app.use('/api/employees', employeeRoutes);
