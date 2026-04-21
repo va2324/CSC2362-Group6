@@ -169,7 +169,7 @@ This document records before/after evidence for each of the 7 intentional vulner
 
 ## 9. Incomplete Search Route
 
-**Where:** `GET api/employees/search?name=`
+**Where:** `GET /api/employees/search?name=`
 
 **PoC (vulnerable):** Incomplete search route exposes all employee data.
 
@@ -189,7 +189,7 @@ This document records before/after evidence for each of the 7 intentional vulner
 
 ## 10. No Rate Limit
 
-**Where:** `POST api/auth/login`
+**Where:** `POST /api/auth/login`
 
 **PoC (vulnerable):** No rate limit on login attempts makes the login route vulnerable to brute-force attacks. 
 
@@ -204,6 +204,26 @@ This document records before/after evidence for each of the 7 intentional vulner
 ![Screenshot](screenshots/RateLimitScript.png "Brute Force Script")
 
 ![Screenshot](screenshots/FixedRateLimit.png "Rate Limit on Login Attempts")
+
+---
+
+## 11. Path Traversal
+
+**Where:** `POST /api/documents`
+
+**PoC (vulnerable):** No path validation allows attackers to input filepaths that could traverse directories and access privileged files. 
+
+**Before (vulnerable):** [Screenshot — No filepath validation]
+
+![Screenshot](screenshots/BadPath.png "Invalid Path Input")
+
+![Screenshot](screenshots/PathAccepted.png "Invalid Path Accepted")
+
+**After (secure):** [Screenshot — Filepath Validation - 400 Bad Request]
+
+![Screenshot](screenshots/BadPath.png "Invalid Path Input")
+
+![Screenshot](screenshots/PathRejected.png "Invalid Path Rejected")
 
 ---
 
