@@ -32,5 +32,5 @@ app.use('/api/documents', documentRoutes);
 app.get('/api/health', (req, res) => res.json({ ok: true }));
 
 app.listen(PORT, () => {
-  console.log(`HRCore backend (vulnerable) running on http://localhost:${PORT}`);
+  console.log(`HRCore backend (secure) running on http://localhost:${PORT}`);
 });
