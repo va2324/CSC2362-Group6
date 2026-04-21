@@ -46,7 +46,9 @@ Any user token returns other users' profiles (vulnerable).
 ## 6. Client-side role escalation
 
 In the app: 
-Set AsyncStorage `role` to `admin` (e.g. via dev tools or a debug screen), reload. Admin Panel appears and API calls succeed (vulnerable). After fix: role from JWT only; storage edit has no effect.
+Set AsyncStorage `role` to `admin` (e.g. via dev tools or a debug screen), reload. Admin Panel appears and API calls succeed (vulnerable). 
+
+After the Fix: role from JWT only; storage edit has no effect.
 
 ## 7. Hardcoded Database Password
 
@@ -74,3 +76,10 @@ for i in {1..10}; do
 done
 ```
 Attempts to log in many times. 
+
+## 11. Path Traversal
+
+In the app: 
+Go to Document Upload Screen. Upload a document with the filepath '../../etc/passwd'. The application does not verify the filepath and accepts it, leading to potential path traversal by the user. 
+
+After the Fix: The malicious filepath is rejected by the application with a 400 Error - Bad Request. Path traversal is prevented. 
