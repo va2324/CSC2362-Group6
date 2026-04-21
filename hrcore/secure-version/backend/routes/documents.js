@@ -42,7 +42,8 @@ router.post('/', async (req, res) => {
     const uid = getUserId(req);
     if (!uid) return res.status(401).json({ error: 'Unauthorized' });
     const { filename, filepath } = req.body;
-    if (!filename || !filepath) return res.status(400).json({ error: 'filename and filepath required' });
+    if (!filename || !filepath) return res.status(400).json({ error: 'Filename and Filepath Required' });
+    if (filepath.startsWith('..') || path.isAbsolute(filepath)) return res.status(400).json({ error: 'Invalid path' });
     const result = await pool.query(
       'INSERT INTO documents (user_id, filename, filepath) VALUES ($1, $2, $3) RETURNING *',
       [uid, filename, filepath]

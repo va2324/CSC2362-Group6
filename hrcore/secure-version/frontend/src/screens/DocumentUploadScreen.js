@@ -117,7 +117,7 @@ export default function DocumentUploadScreen({ navigation }) {
                 <Text style={styles.label}>File Path</Text>
                 <TextInput
                   style={styles.input}
-                  placeholder="e.g. /uploads/doc.pdf"
+                  placeholder="e.g. uploads/doc.pdf"
                   value={filepath}
                   onChangeText={setFilepath}
                   placeholderTextColor="#334155"
