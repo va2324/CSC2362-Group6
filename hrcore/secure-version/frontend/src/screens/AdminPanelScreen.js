@@ -46,21 +46,12 @@ export default function AdminPanelScreen({ navigation }) {
   }
 
   async function remove(id) {
-    Alert.alert('Delete', 'Remove this employee?', [
-      { text: 'Cancel', style: 'cancel' },
-      {
-        text: 'Delete',
-        style: 'destructive',
-        onPress: async () => {
-          try {
-            const res = await api(`/api/admin/employee/${id}`, { method: 'DELETE' });
-            if (res.ok) load();
-          } catch (e) {
-            Alert.alert('Error', e.message);
-          }
-        },
-      },
-    ]);
+    try {
+      const res = await api(`/api/admin/employee/${id}`, { method: 'DELETE' });
+      if (res.ok) load();
+    } catch (e) {
+      Alert.alert('Error', e.message);
+    }
   }
 
   function renderEmployee({ item }) {
