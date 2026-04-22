@@ -1,8 +1,3 @@
-/**
- * Leave routes - VULNERABLE
- * - Notes stored and returned unsanitized (Stored XSS - Vuln #3)
- */
-
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const { pool } = require('../db');
@@ -21,7 +16,7 @@ function getUserId(req) {
   }
 }
 
-// POST /api/leave - submit request (notes not sanitized - XSS)
+// POST /api/leave - submit request
 router.post('/', async (req, res) => {
   try {
     const uid = getUserId(req);
@@ -37,7 +32,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// GET /api/leave - list current user's leave requests (for XSS PoC: notes rendered unsanitized in UI)
+// GET /api/leave - retrieve leave requests
 router.get('/', async (req, res) => {
   try {
     const uid = getUserId(req);
