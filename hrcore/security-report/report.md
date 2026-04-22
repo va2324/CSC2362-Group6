@@ -12,9 +12,11 @@ This document records before/after evidence for each of the 7 intentional vulner
 **PoC (vulnerable):** Script that dumps all salaries via search endpoint.
 
 **Before (vulnerable):** [Screenshot/recording — exploit succeeds]
+
 ![Screenshot](screenshots/SQLInjection.png "SQL Injection")
 
 **After (secure):** [Screenshot/recording — same payload returns safe results / error]
+
 ![Screenshot](screenshots/FixedSQL1.png "SQL Input Validation")
 
 ![Screenshot](screenshots/FixedSQL2.png "No Results Returned")
@@ -30,11 +32,14 @@ This document records before/after evidence for each of the 7 intentional vulner
 **PoC (vulnerable):** `curl` hitting `/api/admin/all-employees` with a regular user token.
 
 **Before (vulnerable):** [Screenshot — 200 OK, full employee list returned]
+
 ![Screenshot](screenshots/BrokenAccessControl1.png "Employee Token")
 
 ![Screenshot](screenshots/BrokenAccessControl2.png "Admin Access Granted")
 
 **After (secure):** [Screenshot — 403 Forbidden]
+
+![Screenshot](screenshots/FixedAccessControlPic.png "Implemented Admin Middleware")
 
 ![Screenshot](screenshots/FixedAccessControl1.png "Employee Token")
 
@@ -49,9 +54,11 @@ This document records before/after evidence for each of the 7 intentional vulner
 **PoC (vulnerable):** Screenshot of DB showing plaintext or weak hash.
 
 **Before (vulnerable):** [Screenshot of `users.password` column]
+
 ![Screenshot](screenshots/Passwords.png "Unencrypted Passwords")
 
 **After (secure):** [Screenshot — bcrypt hashes only]
+
 ![Screenshot](screenshots/FixedHash1.png "Register Using bcrypt")
 
 ![Screenshot](screenshots/FixedHash2.png "Login Using bcrypt")
@@ -67,6 +74,7 @@ This document records before/after evidence for each of the 7 intentional vulner
 **PoC (vulnerable):** Forge a token with the known secret to become admin.
 
 **Before (vulnerable):** [Screenshot — forged token accepted, admin access]
+
 ![Screenshot](screenshots/JWT1.png "Harcoded JWT Secret")
 
 ![Screenshot](screenshots/JWT2.png "Forging New Token")
@@ -87,6 +95,7 @@ This document records before/after evidence for each of the 7 intentional vulner
 **PoC (vulnerable):** Script that iterates `/api/employees/1` … `/api/employees/100`.
 
 **Before (vulnerable):** [Screenshot — all profiles returned]
+
 ![Screenshot](screenshots/IDOR1.png "Script")
 
 ![Screenshot](screenshots/IDOR2.png "Script Continued")
@@ -94,6 +103,10 @@ This document records before/after evidence for each of the 7 intentional vulner
 ![Screenshot](screenshots/IDOR3.png "Employee Profiles")
 
 **After (secure):** [Screenshot — 403 for IDs other than own / admin]
+
+![Screenshot](screenshots/FixedIDORPic1.png "Fixed GET route")
+
+![Screenshot](screenshots/FixedIDORPic2.png "Fixed PUT route")
 
 ![Screenshot](screenshots/FixedIDOR1.png "Script")
 
@@ -110,6 +123,7 @@ This document records before/after evidence for each of the 7 intentional vulner
 **PoC (vulnerable):** Modify AsyncStorage `role` to `admin`, reload, access admin screen.
 
 **Before (vulnerable):** [Screenshot — admin panel visible and functional]
+
 ![Screenshot](screenshots/EscalateRole1.png "Employee Dashboard")
 
 ![Screenshot](screenshots/EscalateRole2.png "Employee Role in Storage")
@@ -119,6 +133,9 @@ This document records before/after evidence for each of the 7 intentional vulner
 ![Screenshot](screenshots/EscalateRole4.png "Admin Dashboard")
 
 **After (secure):** [Screenshot — role from JWT only; editing storage has no effect, 403 on admin API]
+
+![Screenshot](screenshots/FixedEscalationPic.png "Moved Role from Cookie to JWT token")
+
 ![Screenshot](screenshots/FixedEscalation1.png "Employee Dashboard")
 
 ![Screenshot](screenshots/FixedEscalation2.png "Employee Role in Storage")
@@ -136,6 +153,7 @@ This document records before/after evidence for each of the 7 intentional vulner
 **PoC (vulnerable):** Attacker can access the database with hardcoded password and steal/destroy data.
 
 **Before (vulnerable):** [Screenshot — hardcoded database password]
+
 ![Screenshot](screenshots/DBPassword1.png "Hardcoded Database Info")
 
 ![Screenshot](screenshots/DBPassword2.png "Successful Database Login")
@@ -201,6 +219,8 @@ This document records before/after evidence for each of the 7 intentional vulner
 
 **After (secure):** [Screenshot — Rate Limit on Login - 429 Too Many Requests]
 
+![Screenshot](screenshots/FixedRateLimitPic.png "Installed & Implemented express-rate-limit")
+
 ![Screenshot](screenshots/RateLimitScript.png "Brute Force Script")
 
 ![Screenshot](screenshots/FixedRateLimit.png "Rate Limit on Login Attempts")
@@ -220,6 +240,8 @@ This document records before/after evidence for each of the 7 intentional vulner
 ![Screenshot](screenshots/PathAccepted.png "Invalid Path Accepted")
 
 **After (secure):** [Screenshot — Filepath Validation - 400 Bad Request]
+
+![Screenshot](screenshots/PathTraversalFix.png "Input Validation for Filepath")
 
 ![Screenshot](screenshots/BadPath.png "Invalid Path Input")
 
