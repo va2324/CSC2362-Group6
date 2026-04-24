@@ -5,7 +5,7 @@ This document records before/after evidence for each vulnerability, impacts and 
 
 ---
 
-## 1. SQL Injection (A03 Injection)
+## 1. SQL Injection (A05 Injection)
 
 **Where:** `GET /api/employees/search?name=`
 
@@ -27,7 +27,7 @@ This document records before/after evidence for each vulnerability, impacts and 
 
 ---
 
-## 2. Broken Access Control (A01)
+## 2. No Admin Role Check (A01 Broken Access Control)
 
 **Where:** `/api/admin/*` — no role middleware.
 
@@ -39,7 +39,7 @@ This document records before/after evidence for each vulnerability, impacts and 
 
 ![Screenshot](screenshots/BrokenAccessControl2.png "Admin Access Granted")
 
-**Fix:** Implement role checks to ensure user had 'admin' role before granting access to admin routes.
+**Fix:** Implement role checks to ensure user has 'admin' role before granting access to admin routes.
 
 ![Screenshot](screenshots/FixedAccessControlPic.png "Implemented Admin Middleware")
 
@@ -51,7 +51,7 @@ This document records before/after evidence for each vulnerability, impacts and 
 
 ---
 
-## 3. Insecure Password Storage (A02)
+## 3. Insecure Password Storage (A04 Cryptographic Failure)
 
 **Where:** Plaintext or MD5 passwords in DB.
 
@@ -73,7 +73,7 @@ This document records before/after evidence for each vulnerability, impacts and 
 
 ---
 
-## 4. Hardcoded JWT Secret (A02)
+## 4. Hardcoded JWT Secret (A02 Security Misconfiguration)
 
 **Where:** `JWT_SECRET = "password123"` in backend/routes/auth.js.
 
@@ -96,7 +96,7 @@ This document records before/after evidence for each vulnerability, impacts and 
 ![Screenshot](screenshots/FixedJWT2.png "JWT Secret not hardcoded")
 ---
 
-## 5. IDOR (A01)
+## 5. IDOR (A01 Broken Access Control)
 
 **Where:** `GET /api/employees/:id` — any user can fetch any ID.
 
@@ -126,7 +126,7 @@ This document records before/after evidence for each vulnerability, impacts and 
 
 ---
 
-## 6. Client-Side Role Escalation (A01)
+## 6. Client-Side Role Escalation (A01 Broken Access Control)
 
 **Where:** Role stored in AsyncStorage/cookie; user can edit to `admin`.
 
@@ -158,7 +158,7 @@ This document records before/after evidence for each vulnerability, impacts and 
 
 ---
 
-## 7. Hardcoded Database Password
+## 7. Hardcoded Database Password (A02 Security Misconfiguration)
 
 **Where:** Password hardcoded in backend/db.js file.
 
@@ -180,7 +180,7 @@ This document records before/after evidence for each vulnerability, impacts and 
 
 ---
 
-## 8. Missing Security Headers
+## 8. Missing Security Headers (A02 Security Misconfiguration)
 
 **Where:** server.js does not establish any security headers for the application.
 
@@ -200,7 +200,7 @@ This document records before/after evidence for each vulnerability, impacts and 
 
 ---
 
-## 9. Incomplete Search Route
+## 9. Broken Search Route (A10 Mishandling of Exceptional Conditions)
 
 **Where:** `GET /api/employees/search?name=`
 
@@ -222,7 +222,7 @@ This document records before/after evidence for each vulnerability, impacts and 
 
 ---
 
-## 10. No Rate Limit
+## 10. No Rate Limit (A02 Security Misconfiguration)
 
 **Where:** `POST /api/auth/login`
 
@@ -246,7 +246,7 @@ This document records before/after evidence for each vulnerability, impacts and 
 
 ---
 
-## 11. Path Traversal
+## 11. Path Traversal (A05 Injection)
 
 **Where:** `POST /api/documents`
 
