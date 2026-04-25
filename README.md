@@ -4,6 +4,6 @@ HR Management Platform (HRCore) — security lab: build (vulnerable), break (PoC
 
 See **[hrcore/README.md](hrcore/README.md)** for setup and usage.
 
-Access the Security Report at **[hrcore/security-report/report.md](hrcore/security-report/report.md)**
+Read the Security Report at **[hrcore/security-report/report.md](hrcore/security-report/report.md)**
 
 Access the codebase on GitHub at https://github.com/va2324/CSC2362-Group6
